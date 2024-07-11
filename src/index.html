@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Microsoft Cognitive Services Demo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      .control-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body onload="cameraStart()">
+
+    <!-- Main -->
+    <div id="main">
+      <h2>Microsoft Cognitive Services Demo</h2>
+      <div class="camera-div">
+        <video id="video" width="640" height="480" autoplay></video>
+        <canvas hidden id="canvas" width="640" height="480"></canvas>
+        <photo hidden id="photo" width="640" height="480"></photo>
+      </div>
+      <div class="control-container">
+        <div>
+          <input type="checkbox" id="uploadCheckbox">
+          <label for="uploadCheckbox">Upload images to Blob Storage</label>
+        </div>
+        <div>
+          <label for="captureRateSlider">Capture Rate (ms):</label>
+          <input type="range" id="captureRateSlider" name="captureRateSlider" min="1000" max="10000" value="3000">
+          <span id="captureRateValue">3000</span> ms
+        </div>
+      </div>
+      <div class="result-div">
+        <h3>Status:</h3>
+        <div class="status"></div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="bundle.js"></script>
+  </body>
+</html>
+

@@ -1,33 +1,37 @@
 # Azure Cognitive Services Demo
 
 ## Description
-This project implements object recognition using a local webcam and the Computer Vision API from Azure Cognitive Services.
+This project implements object recognition using a local webcam and the Computer Vision API from Azure Cognitive Services. It detects if a person is wearing a headset and show the result on the webpage. It uploads images where no headset is worn to blob storage if the <code>Upload images to Blob Storage</code> checkbox is checked. The rate with which images are sent to Cognitive Services for analysis can be selected with the corresponding slider.
 
 ## Running this project
-### Run using a webserver
-The project won't run properly if you just open the LiveCameraResult.html in your browser. Instead, please use a proper web-server.
-
-*Step 1: Install Node.js and npm*
-
-Download and install Node.js from nodejs.org.
-
-*Step 2: Install http-server*
-
-Open your terminal or command prompt and run:
-<code>npm install -g http-server</code>
-
-*Step 3: Start the local server*
-
-Navigate to your project directory and start the server:
-<code>cd /path/to/your/project</code> and then
-<code>http-server</code>
-
-*Step 4: Access your project in the browser*
-
-Open your web browser and go to <code>http://localhost:8080/LiveCameraResult.html</code>.
 
 ### Configuring Azure Connection
-To set up a connection with the Cognitive Services API, create a file <code>config.js</code> in the <code>js/</code> directory root with the code below. Fill in the correct endpoint URL and API key into the respective fields. Leave the code otherwise as is.
+To set up a connection with the Cognitive Services API and the Azure Blob Storage, create a file <code>config.js</code> in the <code>src/</code> directory with the code below. You can also find an example in <code>/src/config_sample.js</code>. Fill in the correct values into the respective fields marked red.
 <pre><code>// config.js
 export const API_URL = 'https://<span style="color:red">[Endpoint URL]</span>'
-export const API_KEY = '<span style="color:red">[API Key]</span>';</code></pre>
+export const API_KEY = '<span style="color:red">[API Key]</span>';
+export const STORAGE_ACCOUNT_NAME = '<span style="color:red">[Storage account name]</span>';
+export const CONTAINER_NAME = '<span style="color:red">[Container name]</span>';
+export const SAS_TOKEN = '?<span style="color:red">[SAS token]</span>'; // leave the question mark before the SAS token</code></pre>
+
+## Setting up the environment
+
+### Install fnm
+https://nodejs.org/en/download/package-manager
+
+Install fnm: <code>winget install Schniz.fnm</code>
+
+Set up your PowerShell environment for fnm:
+Run <code>notepad $profile</code> and then add the following to the file: <code>fnm env | Out-String | Invoke-Expression</code>
+
+### Install NodeJS using fnm
+Install node version 22: <code>fnm install 22</code>
+
+Check that node was installed correctly: <code>node -v</code>
+
+Install all required node packages: <code>npm install</code>
+
+## Build and run the project
+Build: <code>npm run build</code>
+
+Run: <code>npm start</code>
