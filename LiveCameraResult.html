@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>JavaScript - Live Camera Result</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body onload="cameraStart()">
+
+    <!-- Main -->
+    <div id="main">
+			<h2>Microsoft Cognitive Services Demo</h2>
+      <div class="camera-div">
+        <video id="video" width="640" height="480" autoplay></video>
+        <canvas hidden id="canvas" width="640" height="480"></canvas>
+        <photo hidden id="photo" width="640" height="480"></photo>
+      </div>
+      <div class="result-div">
+        <h3>Captions:</h3>
+        <div class="captions"></div>
+
+        <h3>Tags:</h3>
+        <div class="tags"></div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/jquery.min.js"></script>
+    <script type="module">
+      import { cameraStart } from './js/camera.js';
+      window.cameraStart = cameraStart;
+    </script>
+  </body>
+</html>

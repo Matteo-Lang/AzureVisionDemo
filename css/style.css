@@ -1,0 +1,64 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin: 10px 0;
+}
+
+#main {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin: 20px;
+  padding: 20px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.camera-div, .result-div {
+  margin-bottom: 20px;
+}
+
+.camera-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+video, canvas, photo {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+.result-div h3 {
+  color: #555;
+}
+
+.captions, .tags {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  margin-top: 10px;
+  min-height: 30px;
+}
+
+.captions p, .tags p {
+  margin: 0;
+}
