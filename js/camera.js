@@ -1,3 +1,4 @@
+// camera.js:
 import { API_URL, API_KEY } from './config.js';
 
 // This is the rate of how frequent your camera image is sent to the Computer Vision API
@@ -7,7 +8,6 @@ var CAPTURE_RATE = 3000;  // milliseconds
 var CONSTRAINTS = {
   audio: false,
   video: { facingMode: 'environment' },  // using the rear camera
-  // video: { facingMode: 'user' }        // using the front camera
   video: { exact: {
     height: 500,  // change this to your desired image height
     width: 800    // change this to your desired image width
@@ -43,7 +43,7 @@ function sendImageToAPI() {
 
   $.ajax({
     type: 'POST',
-    url: API_URL,
+    url: `${API_URL}/vision/v3.2/analyze?visualFeatures=Tags`, // Endpoint for analyzing tags
     headers: {
       'Content-Type': 'application/octet-stream',
       'Ocp-Apim-Subscription-Key': API_KEY
@@ -52,23 +52,24 @@ function sendImageToAPI() {
     processData: false,
     success: function (data) {
       console.log(data);
-
-      var captionsResult = '';
-      $.each(data.description.captions, function (index, value) {
-        captionsResult = captionsResult + '<p>' + value.text + ' [confidence: ' + value.confidence + '] </p>';
-      });
-      changeInnerHtml('.captions', captionsResult);
-
-      var tagsResult = '';
-      $.each(data.description.tags, function (index, value) {
-        tagsResult = tagsResult + value + '  ';
-      });
-      changeInnerHtml('.tags', tagsResult);
+      detectHeadset(data);
     },
     error: function (xhr, status) {
       alert('API POST Error.');
     }
   });
+}
+
+// Detect headset in the response data
+function detectHeadset(data) {
+  var tags = data.tags;
+  var headsetDetected = tags.some(tag => tag.name === 'headset' || tag.name === 'headphones');
+
+  if (headsetDetected) {
+    changeInnerHtml('.status', 'Headset detected');
+  } else {
+    changeInnerHtml('.status', 'No headset detected');
+  }
 }
 
 // Helper functions - DO NOT CHANGE IF YOU DON'T UNDERSTAND THE CODE BELOW
@@ -85,7 +86,7 @@ function dataURItoBlob() {
   for (var i = 0; i < bytes.length; i++) {
     byteArr[i] = bytes.charCodeAt(i);
   }
-  return byteArr;
+  return new Blob([buf], { type: mimeType });
 }
 
 function changeInnerHtml(elementPath, newText) {
